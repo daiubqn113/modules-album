@@ -20,11 +20,25 @@ if (!defined('NV_IS_MOD_ALBUM')) {
  */
 function nv_theme_album_main($array_data)
 {
-    global $module_info, $lang_module, $lang_global, $op;
+    global $module_info, $lang_module, $lang_global, $op, $module_name ;
 
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('GLANG', $lang_global);
+    
+    if (!empty($array_data)) {
+        $i = 1;
+        foreach ($array_data as $row){
+            $row['stt'] = $i;
+            $row['status'] = !empty($array_active[$row['status']]) ? $array_active[$row['status']] : '';
+            $row['img'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/'. $module_name . '/' . $row['img'];
+            $row['url_detail'] = NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail&amp;id=' . $data['id'];
+
+            $xtpl->assign('ROW', $row);
+            $xtpl->parse('main.loop');
+            $i++;
+        }
+    }
 
     //------------------
     // Viết code vào đây
@@ -42,11 +56,18 @@ function nv_theme_album_main($array_data)
  */
 function nv_theme_album_detail($array_data)
 {
-    global $module_info, $lang_module, $lang_global, $op;
+    global $module_info, $lang_module, $lang_global, $op, $module_name;
 
     $xtpl = new XTemplate($op . '.tpl', NV_ROOTDIR . '/themes/' . $module_info['template'] . '/modules/' . $module_info['module_theme']);
     $xtpl->assign('LANG', $lang_module);
     $xtpl->assign('GLANG', $lang_global);
+    
+    $row['price'] = number_format($row['price']);
+    $row['image'] = NV_BASE_SITEURL . NV_UPLOADS_DIR . '/'. $module_name . '/' . $row['image'];
+    
+    $xtpl->assign('ROW', $row);
+    
+    $xtpl->assign('ROW_CATE', $row_cate);
 
     //------------------
     // Viết code vào đây
