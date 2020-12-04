@@ -85,9 +85,8 @@ if($nv_Request->isset_request("submit", "post")){
     if(empty($error)){
         if($post['id'] > 0){
             //update
-            $sql = "UPDATE `nv4_album` SET `title_album`=:title_album,`img`=:img,`content`=:content,`status`=:status,`update_at`=:update_at WHERE id=".$post['id'];
+            $sql = "UPDATE `nv4_album` SET `album_id`=:album_id,`img`=:img,`content`=:content,`name_user`=:name_user, `status`=:status WHERE id=".$post['id'];
             $s = $db->prepare($sql);
-            $s->bindValue('update_at', 0);
         }else {
             //insert
             $sql = "INSERT INTO `nv4_album_product`( `album_id`, `img`, `content`, `name_user`, `create_at`, `status`) VALUES (:album_id, :img, :content, :name_user, :create_at, :status)";
@@ -115,7 +114,7 @@ if($nv_Request->isset_request("submit", "post")){
         
     }
 }else if($post['id'] > 0){
-    $sql="SELECT * FROM `nv4_album` where id=".$post['id'];
+    $sql="SELECT * FROM `nv4_album_product` where id=".$post['id'];
     $post=$db->query($sql)->fetch();
 }
 
