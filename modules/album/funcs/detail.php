@@ -17,6 +17,32 @@ $key_words = $module_info['keywords'];
 
 $array_data = [];
 
+$id = $nv_Request->get_int('id','get', 0);
+
+
+if($id>0){
+    $sql = "SELECT * FROM `nv4_album_product` WHERE id =" . $id;
+    
+    $result = $db->query($sql);
+    
+    //Không có dữ liệu chuyển về trang main
+    if (!$row = $result->fetch()) {
+        nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail');
+    }
+    
+    $cate = "SELECT id,name FROM `nv4_album_product` where id= " .$row['album_id'];
+    $row_cate = $db->query($cate)->fetch();
+    
+    //     print_r($row_cate);die();
+    
+    
+    
+    
+}else{
+    //Không có id thì chuyển về trang main
+    nv_redirect_location(NV_BASE_SITEURL . 'index.php?' . NV_LANG_VARIABLE . '=' . NV_LANG_DATA . '&amp;' . NV_NAME_VARIABLE . '=' . $module_name . '&amp;' . NV_OP_VARIABLE . '=detail');
+}
+
 //------------------
 // Viết code vào đây
 //------------------

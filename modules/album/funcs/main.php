@@ -17,6 +17,15 @@ $key_words = $module_info['keywords'];
 
 $array_data = [];
 
+$db->sqlreset()
+->select('*')
+->from('nv4_album')
+->order("id ASC");
+$sql = $db->sql();
+
+$result= $db->query($sql);
+$array_data = $result->fetchAll();
+
 //------------------
 // Viết code vào đây
 //------------------
