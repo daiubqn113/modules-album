@@ -14,4 +14,8 @@ if (!defined('NV_ADMIN') or !defined('NV_MAINFILE') or !defined('NV_IS_MODADMIN'
 
 define('NV_IS_FILE_ADMIN', true);
 
-$allow_func = ['main', 'config', 'album','add_album','album_product','add_album' ];
+$allow_func = ['main', 'config', 'album','add_album','album_product','add_album_product' ];
+
+$array_active = [];
+$array_active[0] = "Ẩn";
+$array_active[1] = "Hiện";
